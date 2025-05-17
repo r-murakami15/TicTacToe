@@ -6,7 +6,7 @@
 
 ## ゲーム画面
 
-![TicTacToe Game Screenshot](https://r-murakami15.github.io/TicTacToe/screenshot.png)
+![TicTacToe Game Screenshot](https://r-murakami15.github.io/TicTacToe/images/screenshot.png)
 
 *実際のゲーム画面は上記デモリンクからご確認いただけます。*
 
