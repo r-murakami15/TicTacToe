@@ -2,6 +2,14 @@
 
 このプロジェクトは、伝統的なマルバツゲーム（三目並べ）に独自のルールを追加した JavaScript 実装です。
 
+[**デモをプレイする**](https://r-murakami15.github.io/TicTacToe/)
+
+## ゲーム画面
+
+![TicTacToe Game Screenshot](https://r-murakami15.github.io/TicTacToe/screenshot.png)
+
+*実際のゲーム画面は上記デモリンクからご確認いただけます。*
+
 ## 基本ルール
 
 1. プレイヤーは交互に「〇」と「✕」を 3x3 のグリッド上に配置します

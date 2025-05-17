@@ -144,22 +144,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } 
         else if (lineType === 'diagonal') {
-            // 対角線の場合も少し伸ばす
-            const boardSize = Math.sqrt(Math.pow(totalCellWidth * 3 - cellGap, 2) + Math.pow(totalCellHeight * 3 - cellGap, 2)) + extraLength;
-            line.style.width = boardSize + 'px';
-            
             if (rotation === 'main') {
                 // 左上から右下への対角線
+                const boardSize = Math.sqrt(Math.pow(totalCellWidth * 3 - cellGap, 2) + Math.pow(totalCellHeight * 3 - cellGap, 2)) + extraLength;
+                line.style.width = boardSize + 'px';
                 line.style.transform = 'rotate(45deg)';
                 line.style.transformOrigin = 'left top';
                 line.style.left = (-extraLength / 2 / Math.sqrt(2)) + 'px';
                 line.style.top = (-extraLength / 2 / Math.sqrt(2)) + 'px';
-            } else {
-                // 右上から左下への対角線
-                line.style.transform = 'rotate(-45deg)';
-                line.style.transformOrigin = 'right top';
-                line.style.left = (totalCellWidth * 3 - cellGap + extraLength / 2 / Math.sqrt(2)) + 'px';
-                line.style.top = (-extraLength / 2 / Math.sqrt(2)) + 'px';
+            } else if (rotation === 'counter') {
+                // 右上から左下への対角線 - 中心点ベースのアプローチ
+                // 対角線のセルを取得
+                const topRightCell = document.querySelector('.cell[data-index="2"]');
+                const middleCell = document.querySelector('.cell[data-index="4"]');
+                const bottomLeftCell = document.querySelector('.cell[data-index="6"]');
+                
+                if (topRightCell && middleCell && bottomLeftCell) {
+                    const topRightRect = topRightCell.getBoundingClientRect();
+                    const middleRect = middleCell.getBoundingClientRect();
+                    const bottomLeftRect = bottomLeftCell.getBoundingClientRect();
+                    
+                    // セルの中心座標を計算（ボード相対）
+                    const topRightX = topRightRect.left + topRightRect.width / 2 - boardRect.left;
+                    const topRightY = topRightRect.top + topRightRect.height / 2 - boardRect.top;
+                    const bottomLeftX = bottomLeftRect.left + bottomLeftRect.width / 2 - boardRect.left;
+                    const bottomLeftY = bottomLeftRect.top + bottomLeftRect.height / 2 - boardRect.top;
+                    
+                    // 対角線の長さを計算（少し余分に）
+                    const lineLength = (Math.sqrt(
+                        Math.pow(topRightX - bottomLeftX, 2) + 
+                        Math.pow(topRightY - bottomLeftY, 2)
+                    ) + extraLength) * 1.45;
+
+                    console.log(lineLength)
+                    
+                    // 中心点を計算
+                    const centerX = (topRightX + bottomLeftX) / 2;
+                    const centerY = (topRightY + bottomLeftY) / 2;
+                    
+                    // 角度を計算
+                    const angle = Math.atan2(
+                        bottomLeftY - topRightY, 
+                        bottomLeftX - topRightX
+                    ) * (180 / Math.PI);
+                    
+                    // 線のスタイルを適用
+                    line.style.width = lineLength + 'px';
+                    line.style.left = (centerX - lineLength / 2) + 'px';
+                    line.style.top = (centerY - 2.5) + 'px'; // 線の幅の半分を引く
+                    line.style.transform = `rotate(${angle}deg)`;
+                    line.style.transformOrigin = 'center';
+                } else {
+                    // フォールバック（セルが見つからない場合）
+                    const boardSize = Math.sqrt(Math.pow(totalCellWidth * 3 - cellGap, 2) + Math.pow(totalCellHeight * 3 - cellGap, 2)) + extraLength;
+                    line.style.width = boardSize + 'px';
+                    line.style.transform = 'rotate(-45deg)';
+                    line.style.transformOrigin = 'center';
+                    line.style.left = (totalCellWidth * 1.5 - cellGap / 2 - boardSize / 2) + 'px';
+                    line.style.top = (totalCellHeight * 1.5 - cellGap / 2 - 2.5) + 'px';
+                }
             }
         }
         
