@@ -1,0 +1,97 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    margin: 0;
+    background-color: #f5f5f5;
+    transition: background-color 0.5s ease;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.game-info {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-bottom: 20px;
+    position: relative; /* 勝利ラインの基準位置にする */
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 2px solid #333;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cell-o, .player-o {
+    color: #1E90FF; /* 青色 */
+}
+
+.cell-x, .player-x {
+    color: #FF4500; /* 赤色 */
+}
+
+.cell-faded {
+    opacity: 0.3; /* 薄く表示するがゲーム上は空欄として扱う */
+}
+
+.cell-win {
+    /* アニメーションを削除し、背景色も使用しない */
+}
+
+/* 勝利ラインの線のスタイル */
+.win-line {
+    position: absolute;
+    background-color: #333; /* 黒い線 */
+    height: 5px; /* 線の太さ */
+    z-index: 1;
+    pointer-events: none; /* クリックイベントを通過 */
+    border-radius: 2.5px; /* 線の端を丸く */
+}
+
+/* プレイヤーターンに応じた背景色 */
+.bg-o {
+    background-color: rgba(30, 144, 255, 0.4); /* 青色の背景（薄め） */
+}
+
+.bg-x {
+    background-color: rgba(255, 68, 0, 0.4); /* 赤色の背景（薄め） */
+}
+
+.cell:hover {
+    background-color: #f0f0f0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
